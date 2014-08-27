@@ -64,10 +64,15 @@ class Client extends OAuth2Client
      *
      * @param string $uri
      *
+     * @throws \Exception
      * @return \OAuth2\Response
      */
     public function get($uri)
     {
+        if (!$this->token) {
+            throw new \Exception('Access token required before performing request.');
+        }
+
         return $this->token->request('GET', $uri);
     }
 }
