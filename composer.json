@@ -1,0 +1,15 @@
+{
+    "name": "stqry/stqry-api-php",
+    "require": {
+        "keeguon/oauth2-php": "1.3.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "STQRYTest": "tests/",
+            "STQRY": "src/"
+        }
+    }
+}
