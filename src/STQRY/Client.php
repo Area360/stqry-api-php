@@ -17,7 +17,7 @@ class Client extends OAuth2Client
     public function __construct($clientId, $clientSecret = null)
     {
         $opts = [
-            'site' => 'http://api.stqryv2.mars.stqry.com',
+            'site' => 'http://api.stqry.com',
             'token_url' => '/oauth',
         ];
 
@@ -62,7 +62,7 @@ class Client extends OAuth2Client
     /**
      * Perform a GET request on a resource
      *
-     * @param string $uri
+     * @param string|array $uri
      *
      * @throws \Exception
      * @return \OAuth2\Response
@@ -71,6 +71,18 @@ class Client extends OAuth2Client
     {
         if (!$this->token) {
             throw new \Exception('Access token required before performing request.');
+        }
+
+        if (is_array($uri)) {
+            $uris = [];
+
+            foreach ($uri as $value) {
+                $uris[] = urlencode($value);
+            }
+
+            $ids = implode(',', $uris);
+
+            $uri = '/?ids=' . $ids;
         }
 
         return $this->token->request('GET', $uri);
