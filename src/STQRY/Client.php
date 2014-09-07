@@ -7,6 +7,9 @@ use OAuth2\Client as OAuth2Client;
 
 class Client extends OAuth2Client
 {
+    const UA      = 'stqry-api-php';
+    const VERSION = '1.0';
+
     /** @var AccessToken */
     protected $token;
 
@@ -22,6 +25,26 @@ class Client extends OAuth2Client
         ];
 
         parent::__construct($clientId, $clientSecret, $opts);
+
+        $this->connection->setDefaultOption('headers', [ 'User-Agent' => $this->getDefaultUserAgent() ]);
+    }
+
+    /**
+     * Get the default User-Agent string to use with Guzzle
+     *
+     * @return string
+     */
+    protected  function getDefaultUserAgent()
+    {
+        $defaultAgent = self::UA . '/' . self::VERSION;
+
+        if (extension_loaded('curl')) {
+            $defaultAgent .= ' curl/' . curl_version()['version'];
+        }
+
+        $defaultAgent .= ' PHP/' . PHP_VERSION;
+
+        return $defaultAgent;
     }
 
     /**
