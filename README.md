@@ -18,3 +18,9 @@ via composer:
     }
 
 As this is a private repo, you will be asked to enter Github username and password on the first update.
+
+### Usage
+
+$client = new Client('stqryapp');
+$email = 'daniel.winter@stqry.com';
+$password = 'blah';
