@@ -17,8 +17,6 @@ via composer:
         }
     }
 
-As this is a private repo, you will be asked to enter Github username and password on the first update.
-
 ### Usage
     
 #### STQRY grant type
