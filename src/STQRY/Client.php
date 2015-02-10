@@ -9,6 +9,7 @@ class Client extends OAuth2Client
 {
     const UA      = 'stqry-api-php';
     const VERSION = '1.0';
+    const API_VERSION = '2.1';
 
     /** @var AccessToken */
     protected $token;
@@ -26,7 +27,10 @@ class Client extends OAuth2Client
 
         parent::__construct($clientId, $clientSecret, $opts);
 
-        $this->connection->setDefaultOption('headers', [ 'User-Agent' => $this->getDefaultUserAgent() ]);
+        $this->connection->setDefaultOption('headers', [
+                'User-Agent' => $this->getDefaultUserAgent(),
+                'Accept' => 'application/vnd.stqry.*+json; version=' . self::API_VERSION,
+            ]);
     }
 
     /**
@@ -109,5 +113,15 @@ class Client extends OAuth2Client
         }
 
         return $this->token->request('GET', $uri);
+    }
+
+    public function getResponse($request, $parseMode = 'automatic')
+    {
+        $response = parent::getResponse($request, $parseMode);
+
+        // Force set parse as JSON. Automatic checks for application/json, so fails with versioning
+        $response->parseMode = 'json';
+
+        return $response;
     }
 }
