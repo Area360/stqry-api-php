@@ -86,6 +86,19 @@ class Client extends OAuth2Client
         return $this->token;
     }
 
+    public function getClientCredentialsToken()
+    {
+        $params = [
+            'grant_type'    => 'client_credentials',
+            'client_id'     => $this->id,
+            'client_secret' => $this->secret,
+        ];
+
+        $this->token = parent::getToken($params);
+
+        return $this->token;
+    }
+
     /**
      * Perform a GET request on a resource
      *
