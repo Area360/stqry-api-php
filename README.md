@@ -25,6 +25,7 @@ If you have been issued with a client ID and client secret, you would use it lik
 
     $client = new Client('myclientid', 'myclientsecert');
 
+    // The access token is remembered internally for subsequent requests, so you will not need to use $accessToken
     $accessToken = $client->getClientCredentialsToken();
 
     // Fetch organization story
