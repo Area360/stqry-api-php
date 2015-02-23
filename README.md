@@ -1,6 +1,8 @@
 stqry-api-php
 =============
 
+See `examples/curl.php` for using the STQRY API in PHP using cURL, without this library.
+
 ### Installation
 
 via composer:
