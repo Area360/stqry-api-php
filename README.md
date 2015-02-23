@@ -17,20 +17,34 @@ via composer:
         }
     }
 
-As this is a private repo, you will be asked to enter Github username and password on the first update.
-
 ### Usage
-
-    $client = new Client('stqryapp');
     
-#### Login / access token
+#### Client credentials grant type
+
+If you have been issued with a client ID and client secret, you would use it like this:
+
+    $client = new Client('myclientid', 'myclientsecert');
+
+    // The access token is remembered internally for subsequent requests, so you will not need to use $accessToken
+    $accessToken = $client->getClientCredentialsToken();
+
+    // Fetch organization story
+    $response = $this->client->get('/entity/organization/37070595-1591-42e5-9a1c-f4cccb93d439');
+
+    $organization = $response->parse();
+    
+    var_dump($organization);
+
+#### STQRY grant type
+
+    $client = new Client('myclientid');
 
     $email = 'daniel.winter@stqry.com';
     $password = '123';
     
     $accessToken = $client->getLoginToken($email, $password);
 
-#### Fetch user information
+##### Fetch user information
 
     $links = $accessToken->getParam('_links');
     
