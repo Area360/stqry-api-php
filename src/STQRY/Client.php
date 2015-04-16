@@ -128,6 +128,18 @@ class Client extends OAuth2Client
         return $this->token->request('GET', $uri);
     }
 
+    public function post($url, array $data = [])
+    {
+        $request = $this->createRequest('POST', $url, [
+            'body' => json_encode($data),
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+        ]);
+
+        return $this->getResponse($request);
+    }
+
     public function getResponse($request, $parseMode = 'automatic')
     {
         $response = parent::getResponse($request, $parseMode);
