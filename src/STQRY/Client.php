@@ -15,13 +15,14 @@ class Client extends OAuth2Client
     protected $token;
 
     /**
-     * @param string        $clientId       Client ID as issued by STQRY
-     * @param string|null   $clientSecret
+     * @param string      $clientId Client ID as issued by STQRY
+     * @param string|null $clientSecret
+     * @param null        $baseUrl
      */
-    public function __construct($clientId, $clientSecret = null)
+    public function __construct($clientId, $clientSecret = null, $baseUrl = null)
     {
         $opts = [
-            'site' => 'http://api.stqry.com',
+            'site' => $baseUrl ?: 'http://api.stqry.com',
             'token_url' => '/oauth',
         ];
 
